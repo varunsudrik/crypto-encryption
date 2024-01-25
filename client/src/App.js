@@ -15,7 +15,8 @@ const App = () => {
 
   useEffect(() => {
     fetchUniqueEmails();
-  }, []);
+  }, [decryptionText, encryptedResult]);
+
   let url = process.env.REACT_APP_BASE_URL;
 
   const validateEmail = (input) => {

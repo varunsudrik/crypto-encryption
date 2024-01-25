@@ -18,6 +18,8 @@ const {
 } = cryptoLogic;
 
 const { publicKey, privateKey } = cryptoLogic.generateKeyPair();
+let shift = 8;
+let keyword = "cryptii";
 
 router.post("/encrypt", async (req, res) => {
   try {
@@ -28,8 +30,6 @@ router.post("/encrypt", async (req, res) => {
     }
 
     let result;
-    let shift = 8;
-    let keyword = "cryptii";
     const encryptedEmail = CryptoJS.AES.encrypt(
       email,
       process.env.Secret_Key
