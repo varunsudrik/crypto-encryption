@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./App.css";
 
@@ -13,9 +13,9 @@ const App = () => {
   const [uniqueEmails, setUniqueEmails] = useState([]);
   const [decryptionError, setDecryptionError] = useState(null);
 
-  useEffect(() => {
-    fetchUniqueEmails();
-  }, [decryptionText, encryptedResult]);
+  // useEffect(() => {
+  //   fetchUniqueEmails();
+  // });
 
   let url = process.env.REACT_APP_BASE_URL;
 
@@ -93,6 +93,10 @@ const App = () => {
     } catch (error) {
       console.error("Error fetching unique emails:", error);
     }
+  };
+
+  const handleShowUsersClick = () => {
+    fetchUniqueEmails();
   };
 
   const copyToClipboard = () => {
@@ -182,6 +186,8 @@ const App = () => {
 
       <div className="result-container">
         <h2>Unique Emails:</h2>
+        <button onClick={handleShowUsersClick}>Show Users</button>
+
         <ul>
           {uniqueEmails.map((email, index) => (
             <li key={index}>{email}</li>
