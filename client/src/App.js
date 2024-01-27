@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./App.css";
 
 const App = () => {
   const [encryptionText, setEncryptionText] = useState("");
@@ -16,24 +15,20 @@ const App = () => {
   // useEffect(() => {
   //   fetchUniqueEmails();
   // });
-
   let url = process.env.REACT_APP_BASE_URL;
 
   const validateEmail = (input) => {
-    //  email Validation using regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(input);
   };
 
   const encryptMessage = async () => {
     try {
-      // Validate email
       if (!validateEmail(email)) {
         alert("Please enter a valid email address");
         return;
       }
 
-      // Check if encryption text is provided
       if (!encryptionText.trim()) {
         alert("Please enter data for encryption");
         return;
@@ -58,7 +53,6 @@ const App = () => {
 
   const decryptMessage = async () => {
     try {
-      // Check if decryption text is provided
       if (!decryptionText.trim()) {
         alert("Please enter data for decryption");
         return;
@@ -110,21 +104,26 @@ const App = () => {
   };
 
   return (
-    <div className="app-container">
-      <h1>Encryption and Decryption App</h1>
-      <div className="input-container">
-        <label>
-          Text for Encryption:
-          <input
-            type="text"
-            value={encryptionText}
-            onChange={(e) => setEncryptionText(e.target.value)}
-          />
-        </label>
-        <div>
+    <div className="container mt-5">
+      <h1 className="mb-4">Encryption and Decryption App</h1>
+
+      <div className="row mb-4">
+        <div className="col-md-4">
+          <label>
+            Text for Encryption:
+            <input
+              className="form-control"
+              type="text"
+              value={encryptionText}
+              onChange={(e) => setEncryptionText(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="col-md-3">
           <label>
             Algorithm:
             <select
+              className="form-control"
               value={algorithm}
               onChange={(e) => setAlgorithm(e.target.value)}
             >
@@ -134,65 +133,99 @@ const App = () => {
             </select>
           </label>
         </div>
-        <label>
-          Email:
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <button onClick={encryptMessage}>Encrypt</button>
+        <div className="col-md-3">
+          <label>
+            Email:
+            <input
+              className="form-control"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+        </div>
+        <div className="col-md-12 mt-2">
+          <button className="btn btn-primary" onClick={encryptMessage}>
+            Encrypt
+          </button>
+        </div>
       </div>
 
-      <div className="input-container">
-        <label>
-          Text for Decryption:
-          <input
-            type="text"
-            value={decryptionText}
-            onChange={(e) => setDecryptionText(e.target.value)}
-          />
-        </label>
-        <button onClick={decryptMessage}>Decrypt</button>
+      <div className="row mb-4">
+        <div className="col-md-6">
+          <label>
+            Text for Decryption:
+            <input
+              className="form-control"
+              type="text"
+              value={decryptionText}
+              onChange={(e) => setDecryptionText(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="col-md-12 mt-2">
+          <button className="btn btn-primary" onClick={decryptMessage}>
+            Decrypt
+          </button>
+        </div>
       </div>
 
       {encryptedResult && (
-        <div className="result-container">
-          <h2>Encrypted Result:</h2>
-          <p className="result-text">{encryptedResult}</p>
-          <button onClick={copyToClipboard}>Copy to Clipboard</button>
-        </div>
-      )}
+  <div className="row mb-4">
+    <div className="col-md-12">
+      <h2>Encrypted Result:</h2>
+      <p className="result-text" style={{ wordWrap: "break-word" }}>
+        {encryptedResult}
+      </p>
+      <button className="btn btn-secondary" onClick={copyToClipboard}>
+        Copy to Clipboard
+      </button>
+    </div>
+  </div>
+)}
 
       {detectedAlgorithm && (
-        <div className="result-container">
-          <h2>Detected Algorithm:</h2>
-          <p className="result-text">{detectedAlgorithm}</p>
+        <div className="row mb-4">
+          <div className="col-md-12">
+            <h2>Detected Algorithm:</h2>
+            <p className="result-text">{detectedAlgorithm}</p>
+          </div>
         </div>
       )}
       {decryptionError && (
-        <div className="error-container">
-          <p className="error-text">{decryptionError}</p>
+        <div className="row mb-4">
+          <div className="col-md-12">
+            <div className="alert alert-danger" role="alert">
+              {decryptionError}
+            </div>
+          </div>
         </div>
       )}
 
       {decryptedResult && (
-        <div className="result-container">
-          <h2>Decrypted Result:</h2>
-          <p className="result-text">{decryptedResult}</p>
+        <div className="row mb-4">
+          <div className="col-md-12">
+            <h2>Decrypted Result:</h2>
+            <p className="result-text">{decryptedResult}</p>
+          </div>
         </div>
       )}
 
-      <div className="result-container">
-        <h2>Unique Emails:</h2>
-        <button onClick={handleShowUsersClick}>Show Users</button>
+      <div className="row mb-4">
+        <div className="col-md-12">
+          <h2>Unique Emails:</h2>
+          <button className="btn btn-primary" onClick={handleShowUsersClick}>
+            Show Users
+          </button>
 
-        <ul>
-          {uniqueEmails.map((email, index) => (
-            <li key={index}>{email}</li>
-          ))}
-        </ul>
+          <ul>
+            {uniqueEmails.map((email, index) => (
+              <li key={index}>{email}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
