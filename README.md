@@ -47,8 +47,8 @@ This full-stack web application provides text encryption and decryption function
 ### Clone Project
 
 ```bash
-git clone https://github.com/your-username/encryption-decryption-app.git
-cd encryption-decryption-app
+git clone https://github.com/varunsudrik/crypto-encryption.git
+cd crypto-encryption
 # Encryption and Decryption App
 
 This full-stack web application provides text encryption and decryption functionalities using various algorithms. The frontend is built with React, and the backend is powered by Node.js. The application supports containerization with Docker and Docker Compose.
@@ -59,8 +59,8 @@ This full-stack web application provides text encryption and decryption function
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/encryption-decryption-app.git
-    cd encryption-decryption-app
+    git clone https://github.com/varunsudrik/crypto-encryption.git
+    cd crypto-encryption
     ```
 
 2. **Build and run the Docker Compose stack:**
